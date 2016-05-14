@@ -1,5 +1,8 @@
 # Read OEIS data 
 
+import numpy as np 
+import filter_seqs as fs
+
 seq_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/stripped", "r")
 names_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/names", "r")
 
@@ -18,9 +21,29 @@ for i in range(0,len(seqs)):
         seq_lens[i] = len(seqs[i])
 names_file.close()
 
+# Print example 
 print names[4]
 print seqs[4]
 
 seq_file.close()
 names_file.close()
+
+
+# Filter sequences 
+filtered_seqs = fs.filter_seqs(seqs)
+
+print "Num. filtered="+str(len(filtered_seqs)) # print seqs
+
+
+# Cluster sequences
+
+
+
+# Visualize sequences 
+
+
+
+
+# Predict missing values 
+
 
