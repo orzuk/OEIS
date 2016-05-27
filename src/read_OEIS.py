@@ -1,38 +1,48 @@
 # Read OEIS data 
 
+import sys
+import gzip
 import numpy as np 
 import filter_seqs as fs
+import features as ftr
 
-seq_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/stripped", "r")
-names_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/names", "r")
+sequences_file = open("data/stripped", "r").readlines()
+sequences = {}
 
-seqs = seq_file.readlines()
-names = names_file.readlines()
+big_ints = 0
+zero_length = 0
 
-num_seqs = len(seqs)
-print num_seqs # print seqs
+for line in sequences_file[4:]: # skip header lines
+    name = line[:7]
+    if line[9:-2] == "":
+        zero_length += 1
+        continue
+        
+    seq = map(int, line[9:-2].split(","))
+    if (len(seq) > 0) and all(abs(i) < sys.maxint for i in seq):
+        sequences[name] = np.array(seq, int)
+    else:
+        big_ints += 1
 
-seq_lens = [0] * num_seqs
-for i in range(0,len(seqs)):
-#    print i
-    tmp_seq = seqs[i].split(",")[1:-1]
-    if len(tmp_seq)>1:
-        seqs[i] = map(int, tmp_seq)
-        seq_lens[i] = len(seqs[i])
-names_file.close()
+print zero_length, "sequences were filtered because of length=0"
+print big_ints, "sequences were filtered because they contained big integers"
 
-# Print example 
-print names[4]
-print seqs[4]
+descriptions_file = open("data/names", "r").readlines()
+descriptions = {}
 
-seq_file.close()
-names_file.close()
+for line in descriptions_file[4:]: # skip header lines
+    name, desc = line.strip().split(" ", 1)
+    if name in sequences:
+        descriptions[name] = desc
 
+names = sorted(sequences.keys())
+
+features = np.rec.fromstring(gzip.open("data/features.bin").read(), dtype = ftr.RecordType)
 
 # Filter sequences 
-filtered_seqs = fs.filter_seqs(seqs)
+# filtered_seqs = fs.filter_seqs(seqs)
 
-print "Num. filtered="+str(len(filtered_seqs)) # print seqs
+# print "Num. filtered="+str(len(filtered_seqs)) # print seqs
 
 
 # Cluster sequences
