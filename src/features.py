@@ -57,6 +57,7 @@ def create_simple_record(sequence):
     features["skewness"] = stats.skew(sequence)
     features["kurtosis"] = stats.kurtosis(sequence)
     
+    features["first"] = sequence[0]
     features["sign"] = np.sign(sequence).mean()
     features["zeros"] = (sequence == 0).mean()
     
@@ -138,7 +139,7 @@ def create_record(name, sequence):
     
     return features
 
-def create_features_files(names, sequences):
+def create_features_file(names, sequences):
     """
     Creates a csv file with the features. It takes approximately
     20 minutes.
@@ -147,5 +148,5 @@ def create_features_files(names, sequences):
     for i, name in enumerate(names):
        feature_array[i] = create_record(name, sequences[name])
     feature_array = np.rec.array(feature_array)
-    feature_array.tofile(gzip.open("data/features.bin.gz", "wb"))
+    gzip.open("data/features.bin.gz", "wb").write(feature_array.tostring())
 

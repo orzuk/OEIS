@@ -37,7 +37,7 @@ for line in descriptions_file[4:]: # skip header lines
 
 names = sorted(sequences.keys())
 
-features = np.rec.fromstring(gzip.open("data/features.bin").read(), dtype = ftr.RecordType)
+features = np.rec.fromstring(gzip.open("data/features.bin.gz").read(), dtype = ftr.RecordType)
 
 # Filter sequences 
 # filtered_seqs = fs.filter_seqs(seqs)
