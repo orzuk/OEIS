@@ -6,7 +6,7 @@ Final project in course 52311.
 A more detailed progress report is available here: 
 [OEIS Progress] (https://docs.google.com/document/d/15XNOPaPWPTjQ8lJFAUpL4AmYmoYgYxhmvTyTtwAHYsw/edit?ts=57488f84#)
 
-List of sub-projects and people assignment: 
+### List of sub-projects and people assignment: 
 
 Preprocessing, filtering - Jonathan Zouari, Ayellet Blass
 
