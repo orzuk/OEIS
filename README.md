@@ -9,10 +9,15 @@ A more detailed progress report is available here:
 List of sub-projects and people assignment: 
 
 Preprocessing, filtering - Jonathan Zouari, Ayellet Blass
+
 Clustering - Eyal Itskovits
+
 Distance measure, feature selection  - Jonathan Fiat  
+
 Dimensionality reduction and visualization - Lior Fox and Leshem Choshen
+
 Prediction - Ofer Springer and ??
+
 Text analysis - Or Zuk
 
 
