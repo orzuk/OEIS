@@ -38,7 +38,7 @@ def main():
 
     names = sorted(sequences.keys())
 
-    features = np.rec.fromstring(gzip.open("data/features.bin.gz").read(), dtype = ftr.RecordType)
+    features = ftr.read_features_file()
 
     # Filter sequences 
     # filtered_seqs = fs.filter_seqs(seqs)
