@@ -153,3 +153,14 @@ def create_features_file(names, sequences):
 def read_features_file():
     """reads the features"""
     return np.rec.fromstring(gzip.open("data/features.bin.gz").read(), dtype = RecordType)
+
+def extract_features(features, choices):
+    """ extracts an ndarray of the given features iterable
+        features - a record array as constructed by create_features_file
+        choices - an iterable containing the titles of the wanted features
+
+        returns a slicing of features containing only the choices by the ORIGINAL order
+        """
+    return np.asarray([[rec[k] for k in choices] for rec in features])
+
+    return features.choose(choices)
