@@ -149,7 +149,7 @@ def create_features_file(names, sequences):
     for i, name in enumerate(names):
        feature_array[i] = create_record(name, sequences[name])
     feature_array = np.rec.array(feature_array)
-    gzip.open("data/features.bin.gz", "wb").write(feature_array.tostring())
+    gzip.open(os.path.dirname(__file__) + "/../data/features.bin.gz", "wb").write(feature_array.tostring())
 
 def read_features_file():
     """reads the features"""
