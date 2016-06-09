@@ -20,7 +20,7 @@ def main():
             continue
             
         seq = map(int, line[9:-2].split(","))
-        if (len(seq) > 0) and all(abs(i) < sys.maxint for i in seq):
+        if (len(seq) > 0) and all([abs(i) < sys.maxint for i in seq]):
             sequences[name] = np.array(seq, int)
         else:
             big_ints += 1
