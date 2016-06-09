@@ -4,11 +4,13 @@ from scipy import stats
 from collections import Counter
 from itertools import combinations
 
+import data
+
 class CommonItems(object):
     C = Counter()
 
-    for name in sequences:
-        C.update(sequences[name])
+    for name in data.sequences:
+        C.update(data.sequences[name])
 
     TOTAL_ITEMS = np.sum(C.values())
     
@@ -43,16 +45,16 @@ class CommonItems(object):
         
         rare_values_dict = {v: set() for v in rare_values}
         
-        for name in sequences:
-            for value in (set(sequences[name]) & rare_values):
+        for name in data.sequences:
+            for value in (set(data.sequences[name]) & rare_values):
                 rare_values_dict[value].add(name)
         
         scores = {}
         
         for value in rare_values_dict:
             for n1, n2 in combinations(rare_values_dict):
-                score = cls.pval_given_singles(s1, s2)
-                scores[n1, n2] = cls.pval_given_singles(sequences[n1], sequences[n2])
+                score = cls.pval_given_singles(data.sequences[n2], data.sequences[n1])
+                scores[n1, n2] = score
         
         return scores
             
