@@ -154,13 +154,8 @@ class XorLeastBits(object):
 
 class Differences(object):
     @staticmethod
-    def _ks_difference(s1, s2):
-        """
-        Assumes len(s1) == len(s2).
-        """
-        diff = s1 - s2
-        all_diffs = (s1 - s2[:, None])[~np.eye(len(s1), dtype = bool)]
-        return -np.log2(stats.ks_2samp(diff, all_diffs).pvalue)
+    def _ks(a, b):
+        return -np.log2(stats.ks_2samp(a, b).pvalue)
         
     @classmethod
     def ks_differences(cls, s1, s2):
@@ -171,19 +166,25 @@ class Differences(object):
         Cut both sequences to the same length.
         """
         l = min(len(s1), len(s2))
-        return cls._ks_difference(s1[:l], s2[:l])
+        diff = s1[:l] - s2[:l]
+        all_diffs = (s1[:l] - s2[:l, None])[~np.eye(len(s1), dtype = bool)]
+        return cls._ks(diff, all_diffs)
 
     @classmethod
-    def ks_correlation(cls, s1, s2):
+    def ks_correlation(cls, s1, s2, min_length = 5):
         """
         Similar to ks_differences, but on all possible shifts between s1 and s2.
         """
         s1, s2 = sorted([s1, s2], key = lambda s: len(s))
         l1, l2 = len(s1), len(s2)
         
+        all_diffs = s1 - s2[:, None]
         score = 0.0
-        for i in range(0, l2 - l1 + 1):
-            score = max(score, cls._ks_difference(s1, s2[i : i + len(s1)]))
+        for i in range(- l2 + min_length, l1 - min_length + 1):
+            diag = np.eye(len(s2), len(s1), i, dtype = bool)
+            diff = all_diffs[diag]
+            rest = all_diffs[~diag]
+            score = max(score, cls._ks(diff, rest))
         
-        return score - np.log2(1 + l2 - l1)
+        return score - np.log2(l1 + l2 + 1 - 2 * min_length)
 
