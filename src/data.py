@@ -1,10 +1,14 @@
 import sys
+import os
 import gzip
+from collections import defaultdict
+from itertools import combinations
+
 import numpy as np 
 import filter_seqs as fs
 import features as ftr
 
-__all__ = ["sequences", "descriptions", "names", "features"]
+__all__ = ["sequences", "descriptions", "names", "features", "duplicates", "duplicates2"]
 
 sequences_file = open("data/stripped", "r").readlines()
 sequences = {}
@@ -38,4 +42,24 @@ for line in descriptions_file[4:]: # skip header lines
 names = sorted(sequences.keys())
 
 features = ftr.read_features_file()
+
+
+# Find perfect duplicates
+
+strings_to_names = defaultdict(lambda: [])
+
+for name in sequences:
+    s = sequences[name].tostring()
+    strings_to_names[s].append(name)
+
+duplicates = []
+for dup in strings_to_names.values():
+    if (len(dup) >= 2):
+        duplicates.append(sorted(dup))
+
+duplicates2 = set()
+for dup in duplicates:
+    for n1, n2 in combinations(dup, 2):
+        duplicates2.add((n1, n2))
+        duplicates2.add((n2, n1))
 
