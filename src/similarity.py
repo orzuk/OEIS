@@ -63,6 +63,7 @@ class CommonItems(object):
             for n1, n2 in combinations(rare_values_dict[value], 2):
                 if ((n1, n2) not in pairs) and ((n1, n2) not in D):
                     pairs.add((n1, n2))
+                    pairs.add((n2, n1))
                     score = cls.pval_given_singles(data.sequences[n2], data.sequences[n1])
                     high_scores.append((n1, n2, score))
         
