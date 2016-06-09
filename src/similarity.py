@@ -151,4 +151,39 @@ class XorLeastBits(object):
         
         p = (conv[0, 1] + conv[1, 0] + 2 * conv[1, 1]) / 2.
         return cls._two_sided_binomial_test((x == 1).sum(), l, p)
+
+class Differences(object):
+    @staticmethod
+    def _ks_difference(s1, s2):
+        """
+        Assumes len(s1) == len(s2).
+        """
+        diff = s1 - s2
+        all_diffs = (s1 - s2[:, None])[~np.eye(len(s1), dtype = bool)]
+        return -np.log2(stats.ks_2samp(diff, all_diffs).pvalue)
         
+    @classmethod
+    def ks_differences(cls, s1, s2):
+        """
+        Performs a Kolmogorov-Smirnov test on difference between sequences
+        against difference of all permutations of sequences.
+        
+        Cut both sequences to the same length.
+        """
+        l = min(len(s1), len(s2))
+        return cls._ks_difference(s1[:l], s2[:l])
+
+    @classmethod
+    def ks_correlation(cls, s1, s2):
+        """
+        Similar to ks_differences, but on all possible shifts between s1 and s2.
+        """
+        s1, s2 = sorted([s1, s2], key = lambda s: len(s))
+        l1, l2 = len(s1), len(s2)
+        
+        score = 0.0
+        for i in range(0, l2 - l1 + 1):
+            score = max(score, cls._ks_difference(s1, s2[i : i + len(s1)]))
+        
+        return score - np.log2(1 + l2 - l1)
+
