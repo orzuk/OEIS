@@ -154,27 +154,26 @@ class XorLeastBits(object):
 
 class Differences(object):
     @staticmethod
-    def _ks(a, b):
+    def _kolmogorov(a, b):
         return -np.log2(stats.ks_2samp(a, b).pvalue)
-        
+    
+    @staticmethod
+    def _kruskal(a, b):
+        return -np.log2(stats.kruskal(a, b).pvalue)
+    
+    @staticmethod
+    def _mannwhitneyu(a, b):
+        return -np.log2(stats.mannwhitneyu(a, b).pvalue)
+    
     @classmethod
-    def ks_differences(cls, s1, s2):
-        """
-        Performs a Kolmogorov-Smirnov test on difference between sequences
-        against difference of all permutations of sequences.
-        
-        Cut both sequences to the same length.
-        """
+    def _difference(cls, s1, s2, func):
         l = min(len(s1), len(s2))
         diff = s1[:l] - s2[:l]
         all_diffs = (s1[:l] - s2[:l, None])[~np.eye(len(s1), dtype = bool)]
-        return cls._ks(diff, all_diffs)
-
+        return func(diff, all_diffs)
+    
     @classmethod
-    def ks_correlation(cls, s1, s2, min_length = 5):
-        """
-        Similar to ks_differences, but on all possible shifts between s1 and s2.
-        """
+    def _correlation(cls, s1, s2, func, min_length = 5):
         s1, s2 = sorted([s1, s2], key = lambda s: len(s))
         l1, l2 = len(s1), len(s2)
         
@@ -184,7 +183,40 @@ class Differences(object):
             diag = np.eye(len(s2), len(s1), i, dtype = bool)
             diff = all_diffs[diag]
             rest = all_diffs[~diag]
-            score = max(score, cls._ks(diff, rest))
+            score = max(score, func(diff, rest))
         
         return score - np.log2(l1 + l2 + 1 - 2 * min_length)
+    
+    @classmethod
+    def ks_differences(cls, s1, s2):
+        """
+        Performs a Kolmogorov-Smirnov test on difference between sequences
+        against difference of all permutations of sequences.
+        
+        Cut both sequences to the same length.
+        """
+        return cls._difference(s1, s2, cls._kolmogorov)
+
+    @classmethod
+    def ks_correlation(cls, s1, s2, min_length = 5):
+        """
+        Similar to ks_differences, but on all possible shifts between s1 and s2.
+        """
+        return cls._correlation(s1, s2, cls._kolmogorov, min_length)
+    
+    @classmethod
+    def kruskal_differences(cls, s1, s2):
+        return cls._difference(s1, s2, cls._kruskal)
+
+    @classmethod
+    def kruskal_correlation(cls, s1, s2, min_length = 5):
+        return cls._correlation(s1, s2, cls._kruskal, min_length)
+    
+    @classmethod
+    def mannwhitney_differences(cls, s1, s2):
+        return cls._difference(s1, s2, cls._mannwhitneyu)
+
+    @classmethod
+    def mannwhitney_correlation(cls, s1, s2, min_length = 5):
+        return cls._correlation(s1, s2, cls._mannwhitneyu, min_length)
 
