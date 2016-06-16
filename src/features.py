@@ -1,6 +1,7 @@
 import numpy as np
 from scipy import stats
 from collections import OrderedDict
+import os
 import gzip
 
 OLSRecord = [
@@ -148,11 +149,11 @@ def create_features_file(names, sequences):
     for i, name in enumerate(names):
        feature_array[i] = create_record(name, sequences[name])
     feature_array = np.rec.array(feature_array)
-    gzip.open("data/features.bin.gz", "wb").write(feature_array.tostring())
+    gzip.open(os.path.dirname(__file__) + "/../data/features.bin.gz", "wb").write(feature_array.tostring())
 
 def read_features_file():
     """reads the features"""
-    return np.rec.fromstring(gzip.open("data/features.bin.gz").read(), dtype = RecordType)
+    return np.rec.fromstring(gzip.open(os.path.dirname(__file__) + "/../data/features.bin.gz").read(), dtype = RecordType)
 
 def extract_features(features, choices):
     """ extracts an ndarray of the given features iterable
