@@ -18,7 +18,7 @@ Feature generation&selection  - Jonathan Fiat
 
 Dimensionality reduction and visualization - Lior Fox and Leshem Choshen
 
-Prediction - Ofer Springer and ??
+Prediction - Ofer Springer and Yoav Wald
 
 Text analysis - Dimid Duchovny, Or Zuk
 
