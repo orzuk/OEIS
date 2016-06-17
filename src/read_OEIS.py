@@ -1,49 +1,33 @@
 # Read OEIS data 
 
+import sys
+import gzip
 import numpy as np 
 import filter_seqs as fs
+import features as ftr
+import similarity
+import data
 
-seq_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/stripped", "r")
-names_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/names", "r")
+def main():
+    pass
 
-seqs = seq_file.readlines()
-names = names_file.readlines()
+    # Filter sequences 
+    # filtered_seqs = fs.filter_seqs(seqs)
 
-num_seqs = len(seqs)
-print num_seqs # print seqs
-
-seq_lens = [0] * num_seqs
-for i in range(0,len(seqs)):
-#    print i
-    tmp_seq = seqs[i].split(",")[1:-1]
-    if len(tmp_seq)>1:
-        seqs[i] = map(int, tmp_seq)
-        seq_lens[i] = len(seqs[i])
-names_file.close()
-
-# Print example 
-print names[4]
-print seqs[4]
-
-seq_file.close()
-names_file.close()
+    # print "Num. filtered="+str(len(filtered_seqs)) # print seqs
 
 
-# Filter sequences 
-filtered_seqs = fs.filter_seqs(seqs)
-
-print "Num. filtered="+str(len(filtered_seqs)) # print seqs
-
-
-# Cluster sequences
+    # Cluster sequences
 
 
 
-# Visualize sequences 
+    # Visualize sequences 
 
 
 
 
-# Predict missing values 
+    # Predict missing values 
 
 
+if __name__ == '__main__':
+    main()
