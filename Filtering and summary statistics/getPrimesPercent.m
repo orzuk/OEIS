@@ -1,6 +1,8 @@
 function [ counts ] = getPrimesPercent( mat )
-%UNTITLED6 Summary of this function goes here
-%   Detailed explanation goes here
+%getPrimesPercent
+%finds percentage of primes. 
+%s4 contains all numbers that are prime in cleaned_data.mat
+%negative numbers are not considered prime
 
 lengths = size(mat,2)-sum(isnan(mat),2)-sum((mat<0),2);
 mat(isnan(mat))=4;

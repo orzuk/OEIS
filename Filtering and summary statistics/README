@@ -1,0 +1,19 @@
+Files
+==========
+getConverges.m - checks whether sequences converges. A sequence is defines as converging if the last 10 members in the sequence fulfill the ratio test conditions
+
+getDifferences.m - finds the median of differences between adjacent members in a sequence for each sequence
+
+getLengths.m - gets lengths of each sequence
+
+getPercentageCubed.m - finds percentage of numbers that are cubed in each sequence negative numbers are not seen as cubed numbers
+
+getPercentageSquared.m - finds percentage of numbers that are cubed in each sequence negative numbers are not seen as squared numbers
+
+getPrimesPercent.m - finds percentage of primes. s4 contains all numbers that are prime in cleaned_data.mat. negative numbers are not considered prime
+
+figures - folder contains all figure created by above scripts/functions
+
+cleaned_data.mat - sequences after filtering and cleaning
+
+s4.mat - all prime numbers that exist in cleaned_data.mat 

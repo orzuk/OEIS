@@ -1,6 +1,7 @@
 function [ counts ] = getPercentageSquared( mat,epsilon )
-%UNTITLED6 Summary of this function goes here
-%   Detailed explanation goes here
+%getPercentageSquared
+%finds percentage of numbers that are cubed in each sequence
+%negative numbers are not seen as squared numbers
 
 lengths = size(mat,2)-sum(isnan(mat),2)-sum((mat<0),2);
 mat(isnan(mat))=3;

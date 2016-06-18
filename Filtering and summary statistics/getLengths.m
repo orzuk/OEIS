@@ -1,6 +1,6 @@
 function [ counts ] = getLengths( mat )
-%UNTITLED6 Summary of this function goes here
-%   Detailed explanation goes here
+%getLengths
+%gets lengths of each sequence
 
 lengths = size(mat,2)-sum(isnan(mat),2);
 

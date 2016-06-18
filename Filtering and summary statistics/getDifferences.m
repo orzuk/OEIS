@@ -1,6 +1,6 @@
 function [  ] = getDifferences( mat )
-%UNTITLED6 Summary of this function goes here
-%   Detailed explanation goes here
+%getDifferences
+%finds the median of differences between adjacent members in a sequence for each sequence
 
 diffs = diff(mat,1,2);
 m=median(diffs,2,'omitnan');
