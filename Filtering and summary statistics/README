@@ -12,6 +12,9 @@ getPercentageSquared.m - finds percentage of numbers that are cubed in each sequ
 
 getPrimesPercent.m - finds percentage of primes. s4 contains all numbers that are prime in cleaned_data.mat. negative numbers are not considered prime
 
+getMedianModulo.m finds modulo of first 10 primes for each number in sequence.
+Computes median for each number and then for each seqience for on aforementioned median
+
 figures - folder contains all figure created by above scripts/functions
 
 cleaned_data.mat - sequences after filtering and cleaning
