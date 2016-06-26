@@ -19,15 +19,12 @@ def main():
 	feature_names = [name for (name, typ) in features[0].dtype.descr if name not in general_field_names]
 	feature_names = ["var","mean"]
 
-	#names = ftr.extract_features(features, ["name"])
 	names = features[["name"]]
 	X = ftr.extract_features(features, feature_names)
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 
-	# print(features[0].dtype)
-	# print(feature_names)
-	#print(features[0][1])
 	test_pca(names, X)
+
 	
 
 def test_pca(names, X, labels=None):
@@ -35,7 +32,6 @@ def test_pca(names, X, labels=None):
 
 	X = X[np.isfinite(X).all(axis=1)]
 	pca = PCA(n_components=2)
-	#pca.fit(X)
 	X_pc = pca.fit_transform(X)
 	plt_scatter(names, X_pc, labels)
 

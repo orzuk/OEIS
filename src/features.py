@@ -169,9 +169,3 @@ def extract_features(features, choices):
         res[i,:] = np.asarray(tuple(row))
 
     return res
-
-    #return features[choices]
-
-    # return np.asarray([[rec[k] for k in choices] for rec in features])
-
-    # return features.choose(choices)
