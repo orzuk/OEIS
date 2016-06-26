@@ -162,6 +162,16 @@ def extract_features(features, choices):
 
         returns a slicing of features containing only the choices by the ORIGINAL order
         """
-    return np.asarray([[rec[k] for k in choices] for rec in features])
+    
+    res = np.zeros((features.shape[0], len(choices)))
 
-    return features.choose(choices)
+    for (i,row) in enumerate(features[choices]):
+        res[i,:] = np.asarray(tuple(row))
+
+    return res
+
+    #return features[choices]
+
+    # return np.asarray([[rec[k] for k in choices] for rec in features])
+
+    # return features.choose(choices)
