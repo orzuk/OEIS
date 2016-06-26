@@ -37,6 +37,15 @@ def dim_red(names,X,model,labels=None):
 	plt_scatter(names,X_ts,labels)
 	return X_ts
 
+def mds(names, X, labels=None):
+	dim_red(names,X,MDS(n_components=2),labels)
+
+
+def tsne(names, X, labels=None):
+	"""runs a TSNE analysis"""
+	dim_red(namex,X,TSNE(n_components=2),labels)
+	
+
 def pca(names, X, labels=None):
 	"""runs a PCA analysis on features"""
 	dim_red(namex,X,PCA(n_components=2),labels)
