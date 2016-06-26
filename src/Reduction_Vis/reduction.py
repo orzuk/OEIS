@@ -1,8 +1,13 @@
 # import python packages
 import numpy as np
+
 from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+from sklearn.manifold import MDS
+
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+
 # add to python environment the directory above the one the file is in (src)
 import sys
 import os
@@ -14,29 +19,28 @@ import features as ftr
 
 def main():
 	features = ftr.read_features_file()
-	print(len(features[0].dtype.descr))
 	general_field_names = ["name", "length"]
 	feature_names = [name for (name, typ) in features[0].dtype.descr if name not in general_field_names]
-	feature_names = ["var","mean"]
+	#feature_names = ["var","mean"]
 
 	names = features[["name"]]
 	X = ftr.extract_features(features, feature_names)
+	X = X[0:1000,:]
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 
-	test_pca(names, X)
+	#pca(names, X)
+	mds(names,X)
 
-	
-
-def test_pca(names, X, labels=None):
-	"""runs a PCA analysis on features"""
-
+def dim_red(names,X,model,labels=None):
 	X = X[np.isfinite(X).all(axis=1)]
-	pca = PCA(n_components=2)
-	X_pc = pca.fit_transform(X)
-	plt_scatter(names, X_pc, labels)
+	X_ts = model.fit_transform(X)
+	plt_scatter(names,X_ts,labels)
+	return X_ts
 
-
-	print(pca.explained_variance_ratio_)
+def pca(names, X, labels=None):
+	"""runs a PCA analysis on features"""
+	dim_red(namex,X,PCA(n_components=2),labels)
+	#print(model.explained_variance_ratio_)
 
 def plt_scatter(names,X, labels=None):
 	if labels is None:
