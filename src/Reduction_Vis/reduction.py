@@ -26,10 +26,12 @@ def main():
 	names = features[["name"]]
 	X = ftr.extract_features(features, feature_names)
 	X = X[0:1000,:]
+
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 
+	tsne(names,X)
 	#pca(names, X)
-	mds(names,X)
+	#mds(names,X)
 
 def dim_red(names,X,model,labels=None):
 	X = X[np.isfinite(X).all(axis=1)]
@@ -43,12 +45,12 @@ def mds(names, X, labels=None):
 
 def tsne(names, X, labels=None):
 	"""runs a TSNE analysis"""
-	dim_red(namex,X,TSNE(n_components=2),labels)
+	dim_red(names,X,TSNE(n_components=2),labels)
 	
 
 def pca(names, X, labels=None):
 	"""runs a PCA analysis on features"""
-	dim_red(namex,X,PCA(n_components=2),labels)
+	dim_red(names,X,PCA(n_components=2),labels)
 	#print(model.explained_variance_ratio_)
 
 def plt_scatter(names,X, labels=None):
