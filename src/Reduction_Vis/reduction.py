@@ -33,7 +33,7 @@ def main():
 
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 
-	# hirerch_clustering(names,X,labels)
+	hirerch_clustering(names,X,labels)
 	#tsne(names,X)
 	#pca(names, X)
 	#mds(names,X)
@@ -45,6 +45,15 @@ def clean(X,names,labels):
 
 	return X[idxs], names[idxs], labels[idxs]
 
+def hirerch_clustering(names,X,labels=None,similarity='cosine'):
+	
+	X,names,labels = clean(X,names,labels)
+
+	D = linkage(X, 'average', similarity)
+	plt.figure()
+	print(D)
+	dendrogram(D,  leaf_rotation=90., leaf_font_size=8., labels=names)
+	plt.show()
 
 def dim_red(names,X,model,title,labels=None):
 	
