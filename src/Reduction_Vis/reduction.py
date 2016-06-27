@@ -1,4 +1,5 @@
 # import python packages
+from collections import Counter
 import numpy as np
 
 from sklearn.decomposition import PCA
@@ -28,14 +29,14 @@ def main():
 	print("is this fast?")
 	X = ftr.extract_features(features, feature_names)
 	print("or is that?")
-	X = X[0:100,:]
+	X = X[0:1000,:]
 	print("fast, right?	")
 
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 
+	# pca(names, X)
+	tsne(names,X)
 	hirerch_clustering(names,X,labels)
-	#tsne(names,X)
-	#pca(names, X)
 	#mds(names,X)
 
 def clean(X,names,labels):
@@ -45,6 +46,38 @@ def clean(X,names,labels):
 
 	return X[idxs], names[idxs], labels[idxs]
 
+def color_dendogram(D, labels):
+	""" gets linkage matrix and labels and returns a function that for each ids returns a color"""
+	# label_num = len(set(labels))
+	colors = []
+	for label in labels:
+		colors.append(Counter([label]))
+	for row in D:
+		left = colors[int(row[0])]
+		right = colors[int(row[1])]
+
+		colors.append(left + right)
+
+	# for row in D:
+	# 	if row[0] < len(labels): 
+	# 		left = Counter([labels[int(row[0])]])
+	# 	else:
+	# 		left = colors[int(row[0]) - len(labels)]
+
+	# 	if row[1] < len(labels): 
+	# 		right = Counter([labels[int(row[1])]])
+	# 	else:
+	# 		right = colors[int(row[1]) - len(labels)]
+	# 	colors.append(left + right)
+	pallete = rainbow_colors(labels)
+	print(pallete)
+	print(len(colors))
+	def colorer(idx):
+		print(idx)
+		print( pallete[colors[idx].most_common(1)[0][0]])
+		return pallete[colors[idx].most_common(1)[0][0]]
+	return colorer
+
 def hirerch_clustering(names,X,labels=None,similarity='cosine'):
 	
 	X,names,labels = clean(X,names,labels)
@@ -52,8 +85,10 @@ def hirerch_clustering(names,X,labels=None,similarity='cosine'):
 	D = linkage(X, 'average', similarity)
 	plt.figure()
 	print(D)
-	dendrogram(D,  leaf_rotation=90., leaf_font_size=8., labels=names)
+	colors = color_dendogram(D, labels)
+	dendrogram(D,  leaf_rotation=90., link_color_func=colors, leaf_font_size=8., labels=names)
 	plt.show()
+
 
 def dim_red(names,X,model,title,labels=None):
 	
@@ -76,15 +111,19 @@ def pca(names, X, labels=None):
 	dim_red(names,X,PCA(n_components=2),"PCA Analysis", labels)
 	#print(model.explained_variance_ratio_)
 
+def rainbow_colors(labels):
+	"""creates colors, each corresponding to a unique label"""
+	cls = set(labels)
+
+	return dict(zip(cls, cm.rainbow(np.linspace(0, 1, len(cls)))))
+
 def plt_scatter(names, X, title, labels=None):
 	if labels is None:
 		labels = np.asarray([0 for i in range(X.shape[0])])
 
-	cls = set(labels)
-
-	colors = cm.rainbow(np.linspace(0, 1, len(cls)))
+	colors = rainbow_colors(labels)
 	plt.figure()
-	for c,l in zip(cls,colors):
+	for c,l in colors.iteritems():
 		idx = labels == c
 		plt.scatter(X[idx,0], X[idx,1], c=l)
 
