@@ -50,7 +50,10 @@ def seq_to_mat(seq, first_num=0, last_num=30, first_digit=0, last_digit=10):
     mat = np.asarray(mat_lst)
     return mat
 
-for _,seq in sequences.items()[0:100]:
+subplot_ind = 1
+for _,seq in sequences.items()[0:18]:
     mat = seq_to_mat(seq)
+    plt.subplot(3, 6, subplot_ind)
     plt.imshow(mat, interpolation='nearest')
-    plt.show()
+    subplot_ind += 1
+plt.show()
