@@ -1,33 +1,59 @@
 # Read OEIS data 
 
-import sys
-import gzip
 import numpy as np 
 import filter_seqs as fs
-import features as ftr
-import similarity
-import data
+import plot_basic_seq_stats as pb
 
-def main():
-    pass
+seq_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/stripped", "r")
+names_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/names", "r")
 
-    # Filter sequences 
-    # filtered_seqs = fs.filter_seqs(seqs)
+seqs = seq_file.readlines()
+names = names_file.readlines()
 
-    # print "Num. filtered="+str(len(filtered_seqs)) # print seqs
+num_seqs = len(seqs)
+print "Total: " +str(num_seqs) +" sequences" 
+
+seq_lens = [0] * num_seqs
+for i in range(0,len(seqs)):
+#    print i
+    tmp_seq = seqs[i].split(",")[1:-1]
+    if len(tmp_seq)>1:
+        seqs[i] = map(int, tmp_seq)
+        seq_lens[i] = len(seqs[i])
+names_file.close()
+
+# Print example 
+print "Example seq #4:"
+print names[4]
+print seqs[4]
+
+seq_file.close()
+names_file.close()
 
 
-    # Cluster sequences
+# Filter sequences 
+filtered_seqs = fs.filter_seqs(seqs)
+
+print "Num. filtered="+str(len(filtered_seqs)) # print seqs
+
+
+# Display basic statistics for sequneces 
+pb.plot_basic_seq_stats(filtered_seqs)
 
 
 
-    # Visualize sequences 
+
+# Cluster sequences
 
 
 
+# Visualize sequences 
 
-    # Predict missing values 
 
 
-if __name__ == '__main__':
-    main()
+# Textual analysis 
+
+
+# Predict missing values 
+
+
