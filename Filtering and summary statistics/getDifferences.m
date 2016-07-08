@@ -30,9 +30,9 @@ set(gca,'XScale','log')
 
 %bar((min(m)+1000:1000:max(m)+1),mlog);
 title('histogram of median difference  series');
-ylabel('log(histogram height')
-xlabel('log (median value)')
-legend('positive median values','negative median values');
+ylabel('histogram height (logarithmic scale)')
+xlabel('median value (logarithmic scale)')
+legend('positive median values','abs(negative median values)');
 saveas(gcf,'difference.png');
 
 

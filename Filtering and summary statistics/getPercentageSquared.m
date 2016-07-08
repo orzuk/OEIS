@@ -1,7 +1,10 @@
-function [ counts ] = getPercentageSquared( mat,epsilon )
+function [ counts ] = getPercentageSquared( epsilon )
 %getPercentageSquared
+%epsilon - maximal distance from zero to be considered zero
 %finds percentage of numbers that are cubed in each sequence
 %negative numbers are not seen as squared numbers
+load cleaned_data;
+mat = cleaned_data;
 
 lengths = size(mat,2)-sum(isnan(mat),2)-sum((mat<0),2);
 mat(isnan(mat))=3;

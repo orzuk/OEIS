@@ -5,12 +5,12 @@ function [  ] = getMedianModulo()
 %aforementioned median
 load cleaned_data;
 [x1,y1]=computeMedianModulo(cleaned_data);
-r2 = randn(1000,123);
+r2 = randn(10000,123);
 %hold on;
 
 [x2,y2]=computeMedianModulo(r2);
 
-r3 = min(cleaned_data(:)) + (max(cleaned_data(:))-min(cleaned_data(:)))*rand(1000,1);
+r3 = min(cleaned_data(:)) + (max(cleaned_data(:))-min(cleaned_data(:)))*rand(10000,1);
 [x3,y3]=computeMedianModulo(r3);
 
 xLength = max(length(x1),length(x2));
