@@ -4,6 +4,7 @@ getConverges.m - checks whether sequences converges. A sequence if the derivativ
 We caculate the derivatives on the absolute value of the integers
 
 getDifferences.m - finds the median of differences between adjacent members in a sequence for each sequence
+displays the medians that are negative as their absolute value so that they can be displayed in log scale
 
 getLengths.m - gets lengths of each sequence
 
@@ -14,9 +15,8 @@ getPercentageSquared.m - finds percentage of numbers that are cubed in each sequ
 getPrimesPercent.m - finds percentage of primes. s4 contains all numbers that are prime in cleaned_data.mat. negative numbers are not considered prime
 
 getMedianModulo.m finds modulo of first 10 primes for each number in sequence 
-Computes median for each number and then for each sequence for on aforementioned median
-displays the medians that are negative as their absolute value so that they can be displayed in log scale
-This is done on the OESI cleaned data set(cleaned.mat) and random datasets from the normal and uniform distribution.
+Computes median for each number and then for each sequence on aforementioned median
+This is done on the OESI cleaned data set(cleaned.mat) and random datasets of size 10000 from the normal and uniform distributions.
 
 figures - folder contains all figure created by above scripts/functions
 
