@@ -13,7 +13,7 @@ Preprocessing, filtering - Jonathan Zouari, Ayellet Blass. [Filtering and Prepro
 
 Clustering - Eyal Itskovits
 
-Distance measure - 
+# Distance measures - 
 
 Feature generation&selection  - Jonathan Fiat  
 
