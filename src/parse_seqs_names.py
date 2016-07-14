@@ -52,5 +52,24 @@ def parse_seqs_names(names):
     labels_names = [frequent_words[k][0] for k in range(0, n_frequent)]    
     
     # save to file 
+    seq_ids = names
+    for i in range(0, 4): # loop on most frequent words  
+        seq_ids[i] = names[i][1:-1]
+    for i in range(4, num_seqs): # loop on most frequent words  
+        seq_ids[i] = names[i].partition(' ')[0]
+    
+    
+    os.chdir('C:\Users\oorzu\Documents\GitHub\OEIS\data') # my path 
+    
+    labels_file = open('labels', 'wb')
+    for i in range(0, num_seqs):
+        labels_file.write(seq_ids[i] + '\t' + str(labels_vec[i]) + '\n')
+    labels_file.close()    
+
+    labels_file = open('label_names', 'wb')
+    for i in range(0, n_frequent):
+        labels_file.write(str(i+1) + '\t' + labels_names[i] + '\n')
+    labels_file.close()    
+
     
     return (labels_vec, labels_names) # return labels 
