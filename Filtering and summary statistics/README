@@ -8,13 +8,13 @@ displays the medians that are negative as their absolute value so that they can 
 
 getLengths.m - gets lengths of each sequence
 
-getPercentageCubed.m - finds percentage of numbers that are cubed in each sequence negative numbers are not seen as cubed numbers
+getPercentageCubed.m - finds percentage of numbers that are cubed in each sequence. negative numbers are not seen as cubed numbers
 
-getPercentageSquared.m - finds percentage of numbers that are cubed in each sequence negative numbers are not seen as squared numbers
+getPercentageSquared.m - finds percentage of numbers that are squares in each sequence. negative numbers are not seen as squared numbers
 
-getPrimesPercent.m - finds percentage of primes. s4 contains all numbers that are prime in cleaned_data.mat. negative numbers are not considered prime
+getPrimesPercent.m - finds percentage of primes. File s4.mat contains all numbers that are prime in cleaned_data.mat. negative numbers are not considered prime
 
-getMedianModulo.m finds modulo of first 10 primes for each number in sequence 
+getMedianModulo.m - finds modulo of first 10 primes for each number in sequence 
 Computes median for each number and then for each sequence on aforementioned median
 This is done on the OESI cleaned data set(cleaned.mat) and random datasets of size 10000 from the normal and uniform distributions.
 
@@ -24,8 +24,12 @@ cleaned_data.mat - sequences after filtering and cleaning
 
 s4.mat - all prime numbers that exist in cleaned_data.mat 
 
-cleaning_data.m - Steps we conducted in order to clean the data: (1) Deleted sequences with length<40;(2) Deleted duplicates;
-(3) Check for any gaps or non numeric values;(4) Deleted fixed sequences;(5) Deleted sequences with only 10 different values
+cleaning_data.m - Steps we conducted in order to clean the data: 
+  (1) Deleted sequences with length<40;
+  (2) Deleted duplicates;
+  (3) Check for any gaps or non numeric values;
+  (4) Deleted fixed sequences;
+  (5) Deleted sequences with only 10 different values
 
 seq_ex.m - examples of different seqs
 
