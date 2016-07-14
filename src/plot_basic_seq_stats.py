@@ -18,6 +18,6 @@ def plot_basic_seq_stats(seqs):
     plt.ylabel('Freq.')
     fig = plt.gcf()
     
-    print "Save in dir:"+os.path.dirname(os.path.realpath(__file__))
+    print "Save in dir: "+os.path.dirname(os.path.realpath(__file__))
     plt.savefig('../figs/lengths_hist.png')
     

@@ -3,9 +3,10 @@
 import numpy as np 
 import filter_seqs as fs
 import plot_basic_seq_stats as pb
+import parse_seqs_names as ps
 
-seq_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/stripped", "r")
-names_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/names", "r")
+seq_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/stripped", "r") # Change these according to local path 
+names_file = open("C:/Users/oorzu/Documents/GitHub/OEIS/data/names", "r")  
 
 seqs = seq_file.readlines()
 names = names_file.readlines()
@@ -52,6 +53,8 @@ pb.plot_basic_seq_stats(filtered_seqs)
 
 
 # Textual analysis 
+parsed_names = ps.parse_seqs_names(names)
+
 
 
 # Predict missing values 
