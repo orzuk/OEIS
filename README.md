@@ -8,7 +8,8 @@ A more detailed progress report is available here:
 
 ### List of sub-projects and (temporary!) people assignment: 
 
-Preprocessing, filtering - Jonathan Zouari, Ayellet Blass
+
+Preprocessing, filtering - Jonathan Zouari, Ayellet Blass. [Filtering and Preprocessing Presentation] (https://docs.google.com/presentation/d/1bmX-NUWKpTKk69g8ad1WNckxxGIckn5pn6ucHJMsks0/edit#slide=id.p)
 
 Clustering - Eyal Itskovits
 
