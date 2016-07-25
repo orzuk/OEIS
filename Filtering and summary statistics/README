@@ -45,4 +45,5 @@ primeFacFeatSpace.m - build a new feature space (more info can be found in the p
 
 PCA.m - Using the feature space we have created, we reduce the dimension space to p=2 using PCA (variance explained = 35%) and plot it
 
+getSeq- The function return a subset of the sequences
 
