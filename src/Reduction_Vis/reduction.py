@@ -8,6 +8,7 @@ from sklearn.manifold import MDS
 
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import matplotlib.colors as clrs
 from scipy.cluster.hierarchy import dendrogram, linkage
 
 # add to python environment the directory above the one the file is in (src)
@@ -32,7 +33,7 @@ def main():
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 
 	# pca(names, X)
-	tsne(names,X)
+	# tsne(names,X)
 	hirerch_clustering(names,X,labels)
 	#mds(names,X)
 
@@ -55,24 +56,9 @@ def color_dendogram(D, labels):
 
 		colors.append(left + right)
 
-	# for row in D:
-	# 	if row[0] < len(labels): 
-	# 		left = Counter([labels[int(row[0])]])
-	# 	else:
-	# 		left = colors[int(row[0]) - len(labels)]
-
-	# 	if row[1] < len(labels): 
-	# 		right = Counter([labels[int(row[1])]])
-	# 	else:
-	# 		right = colors[int(row[1]) - len(labels)]
-	# 	colors.append(left + right)
 	pallete = rainbow_colors(labels)
-	print(pallete)
-	print(len(colors))
 	def colorer(idx):
-		print(idx)
-		print( pallete[colors[idx].most_common(1)[0][0]])
-		return pallete[colors[idx].most_common(1)[0][0]]
+		return clrs.rgb2hex(pallete[colors[idx].most_common(1)[0][0]])
 	return colorer
 
 def hirerch_clustering(names,X,labels=None,similarity='cosine'):
