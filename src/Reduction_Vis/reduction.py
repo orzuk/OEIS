@@ -64,14 +64,14 @@ def color_dendogram(D, labels):
 	return colorer
 
 
-def hirerch_clustering(names, X, labels=None, similarity='cosine'):
+def hirerch_clustering(names, X, labels=None, similarity='cosine', p=30):
 	
 	X,names,labels = clean(X,names,labels)
 
 	D = linkage(X, 'average', similarity)
 	plt.figure()
 	colors = color_dendogram(D, labels)
-	dendrogram(D, p=30,truncate_mode='lastp',leaf_rotation=90., link_color_func=colors, leaf_font_size=8., labels=names)
+	dendrogram(D, p=p, truncate_mode='lastp',leaf_rotation=90., link_color_func=colors, leaf_font_size=8., labels=names)
 	plt.show()
 
 
