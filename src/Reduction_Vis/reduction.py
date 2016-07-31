@@ -34,10 +34,10 @@ def main():
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 	labels = read_labels(LABEL_FILE, LABEL_NAMES_FILE, names)
 
-	# tsne(names, X, n_components=3)
-	# tsne(names,X)
+	tsne(names, X, labels, n_components=2)
+	tsne(names, X, labels, n_components=3)
 	hirerch_clustering(names,X,labels)
-	#mds(names,X)
+	mds(names, X, labels, n_components=2)
 
 def read_labels(label_file, label_names_file, names):
 	with open(label_names_file, "r") as fl:
@@ -105,16 +105,16 @@ def dim_red(names, X, model, title, labels=None):
 	plt_scatter(names, X_ts, title, labels)
 	return X_ts
 
-def mds(names, X, labels=None, n_components=2):
+def mds(names, X, labels=None, n_components=2, legend=False):
 	dim_red(names,X,MDS(n_components), "MDS Analysis", labels)
 
 
-def tsne(names, X, labels=None, n_components=2):
+def tsne(names, X, labels=None, n_components=2, legend=False):
 	"""runs a TSNE analysis"""
 	dim_red(names,X,TSNE(n_components), "TSNE Analysis", labels)
 	
 
-def pca(names, X, labels=None, n_components=2):	
+def pca(names, X, labels=None, n_components=2, legend=False):	
 	"""runs a PCA analysis on features"""
 	dim_red(names,X,PCA(n_components),"PCA Analysis", labels)
 	#print(model.explained_variance_ratio_)
@@ -127,7 +127,7 @@ def rainbow_colors(labels):
 	return dict(zip(cls, cm.rainbow(np.linspace(0, 1, len(cls)))))
 
 
-def plt_scatter(names, X, title, labels=None):
+def plt_scatter(names, X, title, labels=None, legend=False):
 	if labels is None:
 		labels = np.asarray([0 for i in range(X.shape[0])])
 
@@ -138,19 +138,20 @@ def plt_scatter(names, X, title, labels=None):
 	if dims == 2:
 		for c, l in colors.iteritems():
 			idx = labels == c
-			plt.scatter(X[idx,0], X[idx,1], c=l)
+			plt.scatter(X[idx,0], X[idx,1], c=l, label=c)
+		should_plot = True
 
-		plt.title(title)
-
-		plt.show()
 	elif dims == 3:
 		axis = fig.add_subplot(111, projection="3d")
 		for c, l in colors.iteritems():
 			idx = labels == c
-			axis.scatter(X[idx,0], X[idx,1], X[idx,2], c=l)
+			axis.scatter(X[idx,0], X[idx,1], X[idx,2], c=l, label=c)
+		should_plot = True
 
+	if should_plot:
 		plt.title(title)
-
+		if legend:
+			plt.legend(fontsize="xx-small", ncol=2, loc=0)
 		plt.show()
 
 
