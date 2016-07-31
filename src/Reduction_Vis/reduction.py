@@ -29,7 +29,7 @@ def main():
 
 	names = features[["name"]]
 	X = ftr.extract_features(features, feature_names)
-	X = X[0:1000,:]
+	X = X[0:50000,:]
 
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 	labels = read_labels(LABEL_FILE, LABEL_NAMES_FILE, names)
