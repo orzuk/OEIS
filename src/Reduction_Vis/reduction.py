@@ -32,9 +32,9 @@ def main():
 
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 
-	tsne(names, X, n_components=3)
+	# tsne(names, X, n_components=3)
 	# tsne(names,X)
-	# hirerch_clustering(names,X,labels)
+	hirerch_clustering(names,X,labels)
 	#mds(names,X)
 
 
@@ -71,7 +71,7 @@ def hirerch_clustering(names, X, labels=None, similarity='cosine'):
 	D = linkage(X, 'average', similarity)
 	plt.figure()
 	colors = color_dendogram(D, labels)
-	dendrogram(D,  leaf_rotation=90., link_color_func=colors, leaf_font_size=8., labels=names)
+	dendrogram(D, p=30,truncate_mode='lastp',leaf_rotation=90., link_color_func=colors, leaf_font_size=8., labels=names)
 	plt.show()
 
 
