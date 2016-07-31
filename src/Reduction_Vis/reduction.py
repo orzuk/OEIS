@@ -19,7 +19,8 @@ sys.path.append(os.path.dirname(__file__) + r"/..")
 
 #import OEIS files
 import features as ftr
-
+LABEL_FILE = os.path.dirname(__file__) + "/../../data/labels"
+LABEL_NAMES_FILE = os.path.dirname(__file__) + "/../../data/label_names"
 
 def main():
 	features = ftr.read_features_file()
@@ -31,11 +32,22 @@ def main():
 	X = X[0:1000,:]
 
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
+	labels = read_labels(LABEL_FILE, LABEL_NAMES_FILE, names)
 
 	# tsne(names, X, n_components=3)
 	# tsne(names,X)
 	hirerch_clustering(names,X,labels)
 	#mds(names,X)
+
+def read_labels(label_file, label_names_file, names):
+	with open(label_names_file, "r") as fl:
+		num2label = dict((tuple(line.split()) for line in fl))
+	num2label["0"] = "other"
+
+	with open(label_file, "r") as fl:
+		name2num = dict((tuple(line.split()) for line in fl if len(line.split()) == 2))
+
+	return np.asarray([num2label[name2num.get(name[0], 0)] for name in names])
 
 
 def clean(X, names,labels):
