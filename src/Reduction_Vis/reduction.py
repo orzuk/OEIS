@@ -26,11 +26,8 @@ def main():
 	#feature_names = ["var","mean"]
 
 	names = features[["name"]]
-	print("is this fast?")
 	X = ftr.extract_features(features, feature_names)
-	print("or is that?")
 	X = X[0:1000,:]
-	print("fast, right?	")
 
 	labels = np.asarray([i%100 for i in range(X.shape[0])])
 
