@@ -3,6 +3,7 @@
 %s4 contains all numbers that are prime in cleaned_data.mat
 %negative numbers are not considered prime
 load cleaned_data;
+
 mat = cleaned_data;
 
 lengths = size(mat,2)-sum(isnan(mat),2)-sum((mat<0),2);
