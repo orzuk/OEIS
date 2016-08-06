@@ -1,14 +1,17 @@
-function [  ] = getAverageNumDivisors(  )
+function [meanRes  ] = getAverageNumDivisors( seqID )
 %getAverageNumDivisors
-%finds percentage of primes. 
-%s4 contains all numbers that are prime in cleaned_data.mat
-%negative numbers are not considered prime
-load cleaned_data;
+%finds sverage number of divisors
+%negative numbers are not considered as in getprimePercentage function
+if nargin == 1
+	cleaned_data=getSeq(seqID)
+else
+	load cleaned_data;
+end
+
 mat2 = cleaned_data;
 uniqueMat = unique(mat2);
 uniqueMat(isnan(uniqueMat))=[];
 uniqueMat(uniqueMat<0)=[];
-%uniqueMat = int64(uniqueMat);
 numDivisors = zeros(size(uniqueMat));
 for i=1:length(uniqueMat)
     if uniqueMat(i)<=flintmax

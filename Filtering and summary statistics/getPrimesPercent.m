@@ -1,8 +1,13 @@
+function [percentages]=getPrimesPercent(seqID)
 %getPrimesPercent
 %finds percentage of primes. 
 %s4 contains all numbers that are prime in cleaned_data.mat
 %negative numbers are not considered prime
-load cleaned_data;
+if nargin == 1
+	cleaned_data=getSeq(seqID)
+else
+	load cleaned_data;
+end
 
 mat = cleaned_data;
 
