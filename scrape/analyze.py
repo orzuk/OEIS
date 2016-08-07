@@ -25,6 +25,39 @@ def scrape(ids):
     )
 
 
+# Parse a formula block, and add the whole black to the result.
+# A block is a formula that is either:
+# 1. a single row
+# 2. sequence (pun intended :) of consecutive rows,
+# marked by (Start) and (End), e.g.
+#
+# %F A000009 From Evangelos Georgiadis, Andrew V. Sutherland,
+#   Kiran S. Kedlaya (egeorg(AT)mit.edu), Mar 03 2009: (Start)
+# %F A000009 a(0)=1. a(n)= 2*(Sum_{k=1} (-1)^(k+1) a(n-k^2)) + sigma(n) where
+# %F A000009 sigma(n)= (-1)^(j) if (n=(j*(3*j+1))/2 OR n=(j*(3*j-1))/2)
+# %F A000009 otherwise sigma(n)=0. (End)
+def parse_formula(last_state, content, res):
+    if content.endswith("(Start)"):
+        formula_state = "start"
+    elif content.endswith("(End)"):
+        formula_state = "end"
+    else:
+        formula_state = "in_out"
+    if formula_state not in ["start", "end"]:
+        if last_state == "start":
+            formula_state = "in"
+        elif last_state == "end":
+            formula_state = "out"
+        else:
+            formula_state = last_state
+    if formula_state in ["start", "out"]:
+        res.append(content)
+    else:
+        res[-1] += "\n{}".format(content)
+
+    return formula_state
+
+
 # Input: a list of ids (Max: 5)
 #
 # Extract fields from the texts of their corresponding series:
@@ -51,25 +84,11 @@ def parse(ids):
             if line[0:2] == '%K':
                 res[i]['keywords'] += content.split(',')
             if line[0:2] == '%F':
-                last_state = formula_state
-                if content.endswith("(Start)"):
-                    formula_state = "start"
-                elif content.endswith("(End)"):
-                    formula_state = "end"
-                else:
-                    formula_state = "in_out"
-                if formula_state not in ["start", "end"]:
-                    if last_state == "start":
-                        formula_state = "in"
-                    elif last_state == "end":
-                        formula_state = "out"
-                    else:
-                        formula_state = last_state
-                if formula_state in ["start", "out"]:
-                    res[i]['formulas'].append(content)
-                else:
-                    res[i]['formulas'][-1] += "\n{}".format(content)
-
+                formula_state = parse_formula(
+                                    formula_state,
+                                    content,
+                                    res[i]['formulas']
+                                )
             if line[0:2] == '%Y':
                 res[i]["refs"].append(content)
     return res
