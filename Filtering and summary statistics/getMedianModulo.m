@@ -1,9 +1,13 @@
-function [  ] = getMedianModulo()
+function [  ] = getMedianModulo(seqID)
 %getMedianModulo 
 %finds modulo of first 10 primes for each number in sequence.
 %computes median for each number and then for each seqience for on
 %aforementioned median
-load cleaned_data;
+if nargin == 1
+	cleaned_data=getSeq(seqID)
+else
+	load cleaned_data;
+end
 [x1,y1]=computeMedianModulo(cleaned_data);
 r2 = randn(10000,123);
 %hold on;

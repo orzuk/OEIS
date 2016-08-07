@@ -1,6 +1,11 @@
+function [lengths]=getLengths(seqID)
 %getLengths
 %gets lengths of each sequence
-load cleaned_data;
+if nargin == 1
+	cleaned_data=getSeq(seqID)
+else
+	load cleaned_data;
+end
 lengths = size(cleaned_data,2)-sum(isnan(cleaned_data),2);
 
 h = histogram(lengths,(0:1:max(lengths)+1));
