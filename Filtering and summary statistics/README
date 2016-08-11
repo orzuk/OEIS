@@ -1,7 +1,17 @@
 Files
 ==========
-getConverges.m - checks whether sequences converges. A sequence if the derivatives on the last 10 numbers get smaller. 
-We caculate the derivatives on the absolute value of the integers
+General Usage: default inout is the cleaned mat. Otherwise the user can input sequence ID as a vector and the
+analysis will be done on these sequence. The results from the functions are ordered in the same way as the input sequences.
+For example assume we use the default cleaned_data and the order in cleaned_data is s[eq1 seq2 seq3....] and we are calculating
+lengths then the output will be [len1,len2,len3...] where len1 corresponds to seq1,len2 corresponds to seq2 etc.
+Alternatively, if the user inputs user ID x,y,z....the we will use seqx,seqy,seqz then the output will be [lenx,leny,lenz...] 
+where lenx corresponds to seqx,leny corresponds to seqy etc.
+
+
+
+getConverges.m - checks whether sequences converges. Convergence is based upon behaviour of the last 10 numbers in the sequence;
+We caculate the second order difference on the absolute value of the integers and if all are smaller then 0 we define the sequence as converging(if all are equal or smaller then zero then we define the sequencece as inconclusive).
+We basically want to see that the difference between numbers(in absolute value) in the sequence is decreasing.
 
 getDifferences.m - finds the median of differences between adjacent members in a sequence for each sequence
 displays the medians that are negative as their absolute value so that they can be displayed in log scale
@@ -18,6 +28,7 @@ getMedianModulo.m - finds modulo of first 10 primes for each number in sequence
 Computes median for each number and then for each sequence on aforementioned median
 This is done on the OESI cleaned data set(cleaned.mat) and random datasets of size 10000 from the normal and uniform distributions.
 
+getAverageNumDivisors.m - finds sverage number of divisors
 figures - folder contains all figure created by above scripts/functions
 
 cleaned_data.mat - sequences after filtering and cleaning

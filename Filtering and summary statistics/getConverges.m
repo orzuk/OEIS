@@ -1,11 +1,11 @@
-function [toReturn] =getConverges(seqID)
+function [convergentSequences,toReturn] =getConverges(seqID)
 %getConverges 
 %   checks whether sequence converges.
 %a sequence is defines as convergin if the last
-% 10 members in the sequence fulfill the ratio test
 %toReturn - 2 denotes converges, 1 denotes inconclusive, 0 denotes diverges
+%convergentSequences - all convergent sequences
 if nargin == 1
-	cleaned_data=getSeq(seqID)
+	cleaned_data=getSeq(seqID);
 else
 	load cleaned_data;
 end	
@@ -18,7 +18,8 @@ last10 = abs(cleaned_data(:,B-10:B-1));
 %div=last10(:,2:10)./last10(:,1:9);
 monodec=sum(all(diff(last10,2,2)<0,2));
 mightmonodec=sum(all(diff(last10,2,2)<=0,2));
-toReturn = 2*all(diff(last10,2,2)<0,2)+all(diff(last10,2,2)<0,2);
+toReturn = all(diff(last10,2,2)<=0,2)+all(diff(last10,2,2)<0,2);
+convergentSequences=cleaned_data(toReturn==2,:);
 %converges = sum(( sum((last10(:,2:10)./last10(:,1:9))<1,2)==9 ));
 %mightConverge = sum(( sum((last10(:,2:10)./last10(:,1:9))<=1,2)==9 ));
 
