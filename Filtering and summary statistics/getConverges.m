@@ -14,7 +14,22 @@ g= ones(size(nan,1),1);
 nan=[nan g];
 v=[1:size(nan,1)].';
 B=accumarray(v,v,[],@(i) find(nan(i,:)==1,1,'first'));
-last10 = abs(cleaned_data(:,B-10:B-1));
+temp=zeros(size(cleaned_data,1),10);
+for i=1:length(B)
+    temp(i,:)=cleaned_data(i,B(i)-10:B(i)-1);
+end
+%b1 = B-10;
+%b2 = B-1;
+%[P, Q] = ndgrid(1:size(cleaned_data,1), 10:-1:1);
+%K = repmat(B(:), [1 10]);
+%ind = K-Q;
+%toAdd = repmat((0:1:(size(cleaned_data,1)-1))*size(cleaned_data,1)',[10 1]);
+%toAdd = toAdd';
+%ind = ind+toAdd;
+%t = cleaned_data';
+%temp = t(ind);
+%temp = temp+0:1:(size(cleaned_data,1)-1)*size(cleaned_data,2);
+last10 = abs(temp);
 %div=last10(:,2:10)./last10(:,1:9);
 monodec=sum(all(diff(last10,2,2)<0,2));
 mightmonodec=sum(all(diff(last10,2,2)<=0,2));
