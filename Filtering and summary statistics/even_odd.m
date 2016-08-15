@@ -1,15 +1,11 @@
 %check number of even and odd in each seq
-%dataCat: 1 - for cleaned data (compute for all the sequences in the cleaned data) and choose vecSeq=[]; 
-%0 - specific sequences from the uncleaned data (in this
-%case you have to add a vector 'vecSeq' that correspond to the IDs of the different
-%sequences you would like to make the computation. ex: seqID=(3,100,5000) represent the sequences (A000003,A000100,A005000)
 
-function even_odd(dataCat,vecSeq)
+function even_odd(seqID)
 
-if dataCat==1
-   load('cleaned_data.mat');
+if nargin == 1
+	cleaned_data=getSeq(seqID);
 else
-   cleaned_data=getSeq(vecSeq);
+	load cleaned_data;
 end
 
 result_vec=zeros(1,size(cleaned_data,1)); %0-even, 1-odd
