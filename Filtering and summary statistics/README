@@ -7,6 +7,9 @@ lengths then the output will be [len1,len2,len3...] where len1 corresponds to se
 Alternatively, if the user inputs user ID x,y,z....the we will use seqx,seqy,seqz then the output will be [lenx,leny,lenz...] 
 where lenx corresponds to seqx,leny corresponds to seqy etc.
 
+One can extract the extreme sequnces by sorting and saving the original indices using [B,I] = sort(___) where I is the original
+indices(see matlab documentation) and then extracting according to index.
+
 
 
 getConverges.m - checks whether sequences converges. Convergence is based upon behaviour of the last 10 numbers in the sequence;
