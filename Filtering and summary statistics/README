@@ -12,7 +12,7 @@ indices(see matlab documentation) and then extracting according to index.
 
 
 
-getConverges.m - checks whether sequences converges. Convergence is based upon behaviour of the last 10 numbers in the sequence;
+[getConverges.m](getConverges.m) - checks whether sequences converges. Convergence is based upon behaviour of the last 10 numbers in the sequence;
 We caculate the second order difference on the absolute value of the integers and if all are smaller then 0 we define the sequence as 
 converging (if all are equal or smaller then zero then we define the sequencece as inconclusive).
 We basically want to see that the difference between numbers (in absolute value) in the sequence is decreasing.
