@@ -1,6 +1,7 @@
 import os
 import sys
 import numpy as np
+import prediction.oeis_filter as oif
 import prediction.oeis_io as oio
 import matplotlib.pyplot as plt
 
@@ -22,7 +23,7 @@ if __name__ == "__main__":
     digit_mats_fn = os.path.join(oeis_dir, 'data', 'digit_mats')
 
     digit_mats = oio.read_seq_digit_mats(digit_mats_fn)
-    digit_mats[digit_mats == 255] = 11
+    digit_mats = oif.filter_short_seqs(digit_mats)
 
     sp_rows = 4
     sp_cols = 8
