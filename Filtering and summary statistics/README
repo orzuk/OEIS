@@ -1,6 +1,6 @@
 Files
 ==========
-General Usage: default inout is the cleaned mat. Otherwise the user can input sequence ID as a vector and the
+General Usage: default input is the cleaned mat. Otherwise the user can input sequence ID as a vector and the
 analysis will be done on these sequence. The results from the functions are ordered in the same way as the input sequences.
 For example assume we use the default cleaned_data and the order in cleaned_data is s[eq1 seq2 seq3....] and we are calculating
 lengths then the output will be [len1,len2,len3...] where len1 corresponds to seq1,len2 corresponds to seq2 etc.
@@ -60,5 +60,5 @@ primeFacFeatSpace.m - build a new feature space (more info can be found in the p
 
 PCA.m - Using the feature space we have created, we reduce the dimension space to p=2 using PCA (variance explained = 35%) and plot it
 
-getSeq- The function return a subset of the sequences
+getSeq.m- The function return a subset of the sequences
 
