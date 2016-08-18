@@ -38,10 +38,6 @@ This is done on the OESI cleaned data set(cleaned.mat) and random datasets of si
 
 [figures](figures) - folder contains all figure created by above scripts/functions
 
-Data files: 
-[cleaned_data.mat](cleaned_data.mat) - sequences after filtering and cleaning
-
-[s4.mat](s4.mat) - all prime numbers that exist in cleaned_data.mat 
 
 [cleaning_data.m](cleaning_data.m) - Steps we conducted in order to clean the data: 
   (1) Deleted sequences with length<40;
@@ -65,4 +61,10 @@ Data files:
 [PCA.m](PCA.m) - Using the feature space we have created, we reduce the dimension space to p=2 using PCA (variance explained = 35%) and plot it
 
 [getSeq.m](getSeq.m)- The function return a subset of the sequences
+
+Data files: 
+
+[cleaned_data.mat](cleaned_data.mat) - sequences after filtering and cleaning
+
+[s4.mat](s4.mat) - all prime numbers that exist in cleaned_data.mat 
 
