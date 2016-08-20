@@ -23,7 +23,7 @@ if __name__ == "__main__":
     digit_mats_fn = os.path.join(oeis_dir, 'data', 'digit_mats')
 
     digit_mats = oio.read_seq_digit_mats(digit_mats_fn)
-    digit_mats = oif.filter_short_seqs(digit_mats)
+    digit_mats = oif.filter_short_digit_mats(digit_mats)
 
     sp_rows = 4
     sp_cols = 8

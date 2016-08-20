@@ -63,7 +63,7 @@ def train(data, num_epochs = 100):
 
 def load_data(data_path = "../data/digit_mats.mat"):
     data_dict = loadmat(data_path)
-    data = oeis_filter.filter_short_seqs(data_dict['seq_digit_mats'])
+    data = oeis_filter.filter_short_digit_mats(data_dict['seq_digit_mats'])
     return data
 
 if __name__ == "__main__":
