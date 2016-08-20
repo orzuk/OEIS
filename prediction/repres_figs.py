@@ -39,4 +39,5 @@ if __name__ == "__main__":
     fig.suptitle('"Digit-matrix" representation of first 32 sequences in OEIS (see repres_gen.py)')
     fig.text(0.5, 0.04, 'digit in number', ha='center')
     fig.text(0.04, 0.5, 'number in sequence', va='center', rotation='vertical')
+    fig.savefig(os.path.join(oeis_dir, 'figs', 'prediction', 'repres', 'digit_matrices.png'))
     plt.show()
