@@ -23,17 +23,21 @@ if __name__ == "__main__":
     - joint histogram of (1+abs(log10(30'th number in seq.)), 1+abs(log10(31'st number in seq.))).
 
     - overall sequence label histogram.
+    - joint histogram of (LSD of 30'th number, sequence label).
     - joint histogram of (1+abs(log10(30'th number in seq.)), sequence label).
     """
 
     script_fn = os.path.abspath(sys.argv[0])
     script_dir = os.path.dirname(script_fn)
     oeis_dir = os.path.dirname(script_dir)
+    seq_labels_fn = os.path.join(oeis_dir, 'data', 'labels')
     seq_vals_fn = os.path.join(oeis_dir, 'data', 'stripped')
     digit_mats_fn = os.path.join(oeis_dir, 'data', 'digit_mats')
 
     seqs, _, _ = oio.read_seq_values(seq_vals_fn)
-    seq_vals = oif.filter_short_seqs(seqs)
+    labels = oio.read_seq_labels(seq_labels_fn)
+    seq_vals, seq_lbls = oif.filter_short_seqs(seqs, labels)
+
     digit_mats = oio.read_seq_digit_mats(digit_mats_fn)
     digit_mats = oif.filter_short_digit_mats(digit_mats)
 
@@ -76,5 +80,20 @@ if __name__ == "__main__":
     plt.imshow(np.log10(H), interpolation='nearest')
     fig.suptitle("Joint log-histogram of log10(1+abs(30'th val) and log10(1+abs(31'st val) in filtered sequences")
     fig.savefig(os.path.join(oeis_dir, 'figs', 'prediction', 'lowdim_stats', 'hist_joint_log_values_30th_31st.png'))
+
+    fig = plt.figure()
+    plt.hist(seq_lbls, log=True)
+    fig.suptitle('Histogram of labels of filtered sequences')
+    fig.savefig(os.path.join(oeis_dir, 'figs', 'prediction', 'lowdim_stats', 'hist_labels_all.png'))
+    fig = plt.figure()
+    H, x, y = np.histogram2d(digit_mats[:, 29, 0], seq_lbls, bins=(10,100))
+    plt.imshow(np.log10(H), interpolation='nearest')
+    fig.suptitle("Joint log-histogram of least-significant-digits of 30'th number and seq. label in filtered seqs.")
+    fig.savefig(os.path.join(oeis_dir, 'figs', 'prediction', 'lowdim_stats', 'hist_joint_lsd_30th_label.png'))
+    fig = plt.figure()
+    H, x, y = np.histogram2d(np.log10(1+np.abs(vals_29)), seq_lbls, bins=(20,100))
+    plt.imshow(np.log10(H), interpolation='nearest')
+    fig.suptitle("Joint log-histogram of log10(1+abs(30'th val) and seq. label in filtered seqs.")
+    fig.savefig(os.path.join(oeis_dir, 'figs', 'prediction', 'lowdim_stats', 'hist_joint_log_value_30th_label.png'))
 
     plt.show()

@@ -7,8 +7,21 @@ import scipy.io as scio
 """ TODO:
 def read_label_names(fn):
 def read_seq_names(fn):
-def read_seq_labels(fn):
 """
+
+
+def read_seq_labels(fn):
+
+    with open(fn, 'r') as fh:
+        seq_strings = fh.readlines()
+    seq_labels = {}
+
+    for line in seq_strings[4:]:  # skip header lines
+        name = line[:7]
+        label = int(line[8:-1])
+        seq_labels[name] = label
+
+    return seq_labels
 
 
 def read_seq_values(fn):

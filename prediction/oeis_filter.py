@@ -11,6 +11,10 @@ def filter_short_digit_mats(mats):
     return mats[good_samples, :, :]
 
 
-def filter_short_seqs(seqs):
+def filter_short_seqs(seqs, labels):
     """ filters sequences where we do not know or have the first 31 numbers """
-    return [seq for seq in seqs.values() if len(seq) >= 31]
+    seq_vals = [seq for seq in seqs.values() if len(seq) >= 31]
+    seq_lbls = [labels[key] for key in seqs.keys() if len(seqs[key]) >= 31]
+    seq_lbls = np.array(seq_lbls)
+
+    return seq_vals, seq_lbls
