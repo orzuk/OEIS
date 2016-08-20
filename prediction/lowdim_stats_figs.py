@@ -96,6 +96,6 @@ if __name__ == "__main__":
     H = H / np.nansum(H, axis=0)
     plt.imshow(np.log10(H), interpolation='nearest')
     fig.suptitle("Joint log-histogram of log10(1+abs(30'th val) and seq. label in filtered seqs.")
-    fig.savefig(os.path.join(oeis_dir, 'figs', 'prediction', 'lowdim_stats', 'hist_joint_log_value_30th_label.png'))
+    fig.savefig(os.path.join(oeis_dir, 'figs', 'prediction', 'lowdim_stats', 'hist_joint_log_values_30th_label.png'))
 
     plt.show()
