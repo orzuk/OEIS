@@ -21,6 +21,9 @@ if __name__ == "__main__":
     - histogram of log10(1+abs(30'th number in seq.)).
     - histogram of log10(1+abs(31'st number in seq.)).
     - joint histogram of (1+abs(log10(30'th number in seq.)), 1+abs(log10(31'st number in seq.))).
+
+    - overall sequence label histogram.
+    - joint histogram of (1+abs(log10(30'th number in seq.)), sequence label).
     """
 
     script_fn = os.path.abspath(sys.argv[0])
@@ -38,22 +41,32 @@ if __name__ == "__main__":
     vals_29 = np.array([val[29] for val in seq_vals])
     vals_30 = np.array([val[30] for val in seq_vals])
 
-    plt.figure()
-    plt.hist(digit_mats.flatten())
-    plt.figure()
+    fig = plt.figure()
+    plt.hist(digit_mats.flatten(), log=True)
+    fig.suptitle('Histogram of all digits in filtered sequences')
+    fig = plt.figure()
     plt.hist(digit_mats[:, 29, 0])
-    plt.figure()
+    fig.suptitle("Histogram of least-significant-digit of 30'th number in filtered sequences")
+    fig = plt.figure()
     plt.hist(digit_mats[:, 30, 0])
-    plt.figure()
-    plt.hist2d(digit_mats[:, 29, 0], digit_mats[:, 30, 0])
+    fig.suptitle("Histogram of least-significant-digit of 31'st number in filtered sequences")
+    fig = plt.figure()
+    H, x, y = np.histogram2d(digit_mats[:, 29, 0], digit_mats[:, 30, 0])
+    plt.imshow(np.log10(H), interpolation='nearest')
+    fig.suptitle("Joint log-frequency of least-significant-digits of 30'th and 31'st number in filtered sequences")
 
-    plt.figure()
-    plt.hist(np.log10(1+np.abs(vals_all)))
-    plt.figure()
-    plt.hist(np.log10(1+np.abs(vals_29)))
-    plt.figure()
-    plt.hist(np.log10(1+np.abs(vals_30)))
-    plt.figure()
-    plt.hist2d(np.log10(1+np.abs(vals_29)), np.log10(1+np.abs(vals_30)))
+    fig = plt.figure()
+    plt.hist(np.log10(1+np.abs(vals_all)), log=True)
+    fig.suptitle('Histogram of log10(1+abs(number in seq.)) in filtered sequences')
+    fig = plt.figure()
+    plt.hist(np.log10(1+np.abs(vals_29)), log=True)
+    fig.suptitle("Histogram of log10(1+abs(30'th number in seq.) in filtered sequences")
+    fig = plt.figure()
+    plt.hist(np.log10(1+np.abs(vals_30)), log=True)
+    fig.suptitle("Histogram of log10(1+abs(31'st number in seq.) in filtered sequences")
+    fig = plt.figure()
+    H, x, y = np.histogram2d(np.log10(1+np.abs(vals_29)), np.log10(1+np.abs(vals_30)))
+    plt.imshow(np.log10(H), interpolation='nearest')
+    fig.suptitle("Joint log-histogram of log10(1+abs(30'th val) and log10(1+abs(31'st val) in filtered sequences")
 
     plt.show()
