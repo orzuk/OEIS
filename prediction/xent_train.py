@@ -24,6 +24,7 @@ y_ = tf.placeholder(tf.float32, shape=[None, dmd.dim_y])
 v = xent_model.setup_variables()
 m = xent_model.setup_model(x, v)
 l = xent_model.setup_loss(x, y_, m)
+a = xent_model.setup_accuracy(x, y_, m)
 
 saver = tf.train.Saver(max_to_keep=save_max_to_keep)
 train_step = tf.train.AdamOptimizer().minimize(l)
@@ -37,14 +38,16 @@ t = time.time()
 first_step = load_step if load_step else 0
 for step in range(first_step, last_step+1):
     if (step+1) % save_every == 0:
-        saver.save(sess, model_name)
+        saver.save(sess, model_name + '-' + str(step+1))
     if (step+1) % test_every == 0:
         batch_train = train.next_batch(test_batch_sz)
         batch_test = test.next_batch(test_batch_sz)
-        l_train = l.eval(feed_dict={x: batch_train['x'], y_: batch_train['y']})
-        l_test = l.eval(feed_dict={x: batch_test['x'], y_: batch_test['y']})
-        print("step %d, training loss %g, test loss %g, delta-time %g secs" % \
-            (step+1, l_train, l_test, time.time() - t))
+        l_train = l.eval(feed_dict={x: batch_train['x'], y_: batch_train['y'], v['keep_prob']: 1.0})
+        l_test = l.eval(feed_dict={x: batch_test['x'], y_: batch_test['y'], v['keep_prob']: 1.0})
+        a_train = a.eval(feed_dict={x: batch_train['x'], y_: batch_train['y'], v['keep_prob']: 1.0})
+        a_test = a.eval(feed_dict={x: batch_test['x'], y_: batch_test['y'], v['keep_prob']: 1.0})
+        print("step %d, train loss %g, test loss %g, train acc %g, test acc %g, delta-time %g secs" % \
+            (step+1, l_train, l_test, a_train, a_test, time.time() - t))
         t = time.time()
     batch_train = train.next_batch(train_batch_sz)
-    train_step.run(feed_dict={x: batch_train['x'], y_: batch_train['y']})
+    train_step.run(feed_dict={x: batch_train['x'], y_: batch_train['y'], v['keep_prob']: 0.5})

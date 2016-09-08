@@ -31,6 +31,7 @@ def setup_variables():
     v['b_fc2'] = bias_variable([25])
     v['W_fc3'] = weight_variable([25, dmd.dim_y])
     v['b_fc3'] = bias_variable([dmd.dim_y])
+    v['keep_prob'] = tf.placeholder(tf.float32, name='keep_prob')
     return v
 
 def setup_model(x, v):
@@ -43,11 +44,16 @@ def setup_model(x, v):
     m['h_pool2_flat'] = tf.reshape(m['h_pool2'], [-1, 8*3*64])
     m['h_fc1'] = tf.nn.relu(tf.matmul(m['h_pool2_flat'], v['W_fc1']) + v['b_fc1'])
     m['h_fc2'] = tf.nn.relu(tf.matmul(m['h_fc1'], v['W_fc2']) + v['b_fc2'])
-    m['h_fc3'] = tf.reshape(tf.matmul(m['h_fc2'], v['W_fc3']) + v['b_fc3'], [-1, 1, dmd.dim_y])
-    m['y'] = tf.reduce_sum(m['h_fc3'], 1)
+    m['h_fc2_dropout'] = tf.nn.dropout(m['h_fc2'], v['keep_prob'])
+    m['y'] = tf.matmul(m['h_fc2_dropout'], v['W_fc3']) + v['b_fc3']
     return m
 
 def setup_loss(x, y_, m):
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits(m['y'], y_)
-    l = tf.reduce_mean(cross_entropy)
-    return l
+    avg_cross_entropy = tf.reduce_mean(cross_entropy)
+    return avg_cross_entropy
+
+def setup_accuracy(x, y_, m):
+    correct_prediction = tf.equal(tf.argmax(m['y'],1), tf.argmax(y_,1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    return accuracy
