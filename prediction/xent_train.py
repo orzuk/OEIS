@@ -26,11 +26,7 @@ m = xent_model.setup_model(x, v)
 l = xent_model.setup_loss(x, y_, m)
 
 saver = tf.train.Saver(max_to_keep=save_max_to_keep)
-global_step = tf.Variable(0, trainable=False)
-learning_rate = tf.train.exponential_decay(learning_rate_starter, global_step,
-                                           learning_rate_decay_every,
-                                           learning_rate_decay_coeff, staircase=True)
-train_step = tf.train.MomentumOptimizer(learning_rate, momentum).minimize(l, global_step=global_step)
+train_step = tf.train.AdamOptimizer().minimize(l)
 sess.run(tf.initialize_all_variables())
 
 if load_step:
@@ -41,7 +37,7 @@ t = time.time()
 first_step = load_step if load_step else 0
 for step in range(first_step, last_step+1):
     if (step+1) % save_every == 0:
-        saver.save(sess, model_name, global_step=step+1)
+        saver.save(sess, model_name)
     if (step+1) % test_every == 0:
         batch_train = train.next_batch(test_batch_sz)
         batch_test = test.next_batch(test_batch_sz)
