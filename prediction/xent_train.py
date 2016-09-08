@@ -1,17 +1,26 @@
-import time, math, os
+import os
+import time
+import math
 import numpy as np
-import tensorflow s tf
-import dataset as ds
+import tensorflow as tf
 import xent_model
-
+import oeis_io as oio
+import oeis_filter as oif
+import digit_mat_dataset as dmd
 from xent_train_params import *
 
-data_dir = os.path.expanduser(data_dir)
-train, test = ds.init_sets(data_dir, dmd.dim_x, dmd.dim_y, norm_func_y=dmd.norm_y)
+np.random.seed(seed)
+
+# load digit_mats as a training and test set
+oeis_dir = os.path.dirname(os.path.dirname(os.path.realpath('__file__')))
+digit_mats_fn = os.path.join(oeis_dir, 'data', 'digit_mats')
+digit_mats = oio.read_seq_digit_mats(digit_mats_fn)
+digit_mats = oif.filter_short_digit_mats(digit_mats)
+train, test = dmd.init_sets(digit_mats, train_ratio)
 
 sess = tf.InteractiveSession()
 x = tf.placeholder(tf.float32, shape=[None, dmd.dim_x])
-y_ = tf.placeholder(tf.float32, shape=[None, dmd.dim_y_normed])
+y_ = tf.placeholder(tf.float32, shape=[None, dmd.dim_y])
 v = xent_model.setup_variables()
 m = xent_model.setup_model(x, v)
 l = xent_model.setup_loss(x, y_, m)
@@ -22,7 +31,6 @@ learning_rate = tf.train.exponential_decay(learning_rate_starter, global_step,
                                            learning_rate_decay_every,
                                            learning_rate_decay_coeff, staircase=True)
 train_step = tf.train.MomentumOptimizer(learning_rate, momentum).minimize(l, global_step=global_step)
-# train_step = tf.train.AdamOptimizer().minimize(l)
 sess.run(tf.initialize_all_variables())
 
 if load_step:

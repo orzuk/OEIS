@@ -1,8 +1,10 @@
 model_name = 'snapshots/xent_train'
-data_dir = '../data/'
 
-last_step = 4000000
-load_step = 340000
+seed = 12345
+train_ratio = 0.9
+
+last_step = 500000
+load_step = None
 
 save_max_to_keep = 1000
 save_every = 20000
