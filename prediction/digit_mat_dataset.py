@@ -14,7 +14,7 @@ class Dataset(object):
         batch = {'x': self._x[batch_inds, :], 'y': self._y[batch_inds, :]}
         self._epoch_samples_used += batch_size
         if self._epoch_samples_used >= self._x.shape[0]:
-            self._dataset_epochs_performed += 1
+            self._epochs_performed += 1
             self._epoch_samples_used = 0
         return batch
 
