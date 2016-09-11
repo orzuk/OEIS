@@ -21,7 +21,7 @@ def avg_pool_2x2(x):
 
 def setup_variables():
     v = {}
-    v['W_conv1'] = weight_variable([3, 3, 1, 32])
+    v['W_conv1'] = weight_variable([5, 3, 1, 32])
     v['b_conv1'] = bias_variable([32])
     v['W_conv2'] = weight_variable([3, 3, 32, 64])
     v['b_conv2'] = bias_variable([64])
