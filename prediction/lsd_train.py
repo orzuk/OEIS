@@ -32,7 +32,6 @@ learning_rate = tf.train.exponential_decay(learning_rate_starter, global_step,
                                            learning_rate_decay_every,
                                            learning_rate_decay_coeff, staircase=True)
 train_step = tf.train.MomentumOptimizer(learning_rate, momentum).minimize(l, global_step=global_step)
-# train_step = tf.train.AdamOptimizer().minimize(l)
 sess.run(tf.initialize_all_variables())
 
 if load_step:

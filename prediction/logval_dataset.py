@@ -1,10 +1,9 @@
 import os
 import numpy as np
 
-digit_mat_sz = np.array([31, 12])
-x_mat_sz = np.array([30, 12])
-dim_x = (digit_mat_sz[0] - 1) * digit_mat_sz[1]
-dim_y = 10
+dim_logval = 31
+dim_x = 30
+dim_y = 1
 
 class Dataset(object):
 
@@ -26,19 +25,11 @@ class Dataset(object):
         self._epochs_performed = 0
 
 
-def to_indicator(y_val):
+def init_sets(logval_vecs, train_ratio):
 
-    n = y_val.shape[0]
-    y_indicator = np.zeros((n, dim_y))
-    y_indicator[range(n), y_val] = 1
-    return y_indicator.reshape((n, -1))
-
-
-def init_sets(digit_mats, train_ratio):
-
-    samples = digit_mats[:, 0:(digit_mat_sz[0] - 1), :].reshape((-1, dim_x))
-    labels = to_indicator(digit_mats[:, digit_mat_sz[0] - 1, 0])
-    num_samples = digit_mats.shape[0]
+    samples = logval_vecs[:, 0:dim_x].reshape((-1, dim_x))
+    labels = logval_vecs[:, dim_x].reshape((-1, dim_y))
+    num_samples = logval_vecs.shape[0]
     num_train = int(train_ratio * num_samples)
     p = np.random.permutation(num_samples)
     train_inds = p[0:num_train]
