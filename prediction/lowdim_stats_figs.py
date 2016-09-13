@@ -90,7 +90,7 @@ if __name__ == "__main__":
     fig.savefig(os.path.join(oeis_dir, 'figs', 'prediction', 'lowdim_stats', 'hist_log_values_31st.png'))
     fig = plt.figure()
     H, x, y = np.histogram2d(np.log10(1+np.abs(vals_29)), np.log10(1+np.abs(vals_30)), bins=100)
-    plt.imshow(np.log10(H), interpolation='nearest')
+    plt.imshow(np.log10(H), interpolation='nearest', extent=[x[0],x[-1],y[-1],y[0]])
     fig.suptitle("Joint log-histogram of log10(1+abs(30'th val) and log10(1+abs(31'st val) in filtered sequences")
     fig.savefig(os.path.join(oeis_dir, 'figs', 'prediction', 'lowdim_stats', 'hist_joint_log_values_30th_31st.png'))
 
