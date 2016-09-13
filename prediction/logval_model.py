@@ -1,5 +1,5 @@
 import tensorflow as tf
-import lsd_dataset as lsdd
+import digit_mat_dataset as dmd
 
 def weight_variable(shape):
     initial = tf.truncated_normal(shape, stddev=0.1)
@@ -29,14 +29,14 @@ def setup_variables():
     v['b_fc1'] = bias_variable([25])
     v['W_fc2'] = weight_variable([25, 25])
     v['b_fc2'] = bias_variable([25])
-    v['W_fc3'] = weight_variable([25, lsdd.dim_y])
-    v['b_fc3'] = bias_variable([lsdd.dim_y])
+    v['W_fc3'] = weight_variable([25, dmd.dim_y])
+    v['b_fc3'] = bias_variable([dmd.dim_y])
     v['keep_prob'] = tf.placeholder(tf.float32, name='keep_prob')
     return v
 
 def setup_model(x, v):
     m = {}
-    m['x_image'] = tf.reshape(x, [-1, lsdd.x_mat_sz[0], lsdd.x_mat_sz[1], 1])
+    m['x_image'] = tf.reshape(x, [-1, dmd.x_mat_sz[0], dmd.x_mat_sz[1], 1])
     m['h_conv1'] = tf.nn.relu(conv2d(m['x_image'], v['W_conv1']) + v['b_conv1'])
     m['h_pool1'] = avg_pool_2x2(m['h_conv1'])
     m['h_conv2'] = tf.nn.relu(conv2d(m['h_pool1'], v['W_conv2']) + v['b_conv2'])

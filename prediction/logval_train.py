@@ -6,21 +6,29 @@ import tensorflow as tf
 import lsd_model
 import oeis_io as oio
 import oeis_filter as oif
-import lsd_dataset as lsdd
+import logvals_vec_dataset as lvd
 from lsd_train_params import *
 
 np.random.seed(seed)
 
 # load digit_mats as a training and test set
+
 oeis_dir = os.path.dirname(os.path.dirname(os.path.realpath('__file__')))
-digit_mats_fn = os.path.join(oeis_dir, 'data', 'digit_mats')
-digit_mats = oio.read_seq_digit_mats(digit_mats_fn)
-digit_mats = oif.filter_short_digit_mats(digit_mats)
-train, test = lsdd.init_sets(digit_mats, train_ratio)
+seq_labels_fn = os.path.join(oeis_dir, 'data', 'labels')
+seq_vals_fn = os.path.join(oeis_dir, 'data', 'stripped')
+seqs, _, _ = oio.read_seq_values(seq_vals_fn)
+labels = oio.read_seq_labels(seq_labels_fn)
+seq_vals, seq_lbls = oif.filter_short_seqs(seqs, labels)
+
+logvals_vecs = np.zeros((len(seq_vals), 31))
+for i, seq in enumerate(seq_vals):
+    logvals_vecs[i, :] = np.log10(1+np.abs(seq_vals[i][0:31]))
+
+train, test = lvd.init_sets(logvals_vecs, train_ratio)
 
 sess = tf.InteractiveSession()
-x = tf.placeholder(tf.float32, shape=[None, lsdd.dim_x])
-y_ = tf.placeholder(tf.float32, shape=[None, lsdd.dim_y])
+x = tf.placeholder(tf.float32, shape=[None, dmd.dim_x])
+y_ = tf.placeholder(tf.float32, shape=[None, dmd.dim_y])
 v = lsd_model.setup_variables()
 m = lsd_model.setup_model(x, v)
 l = lsd_model.setup_loss(x, y_, m)
