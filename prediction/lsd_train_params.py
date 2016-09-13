@@ -1,4 +1,4 @@
-model_name = 'snapshots/xent_train'
+model_name = 'snapshots/digit_train'
 
 seed = 12345
 train_ratio = 0.9

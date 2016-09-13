@@ -3,11 +3,11 @@ import time
 import math
 import numpy as np
 import tensorflow as tf
-import xent_model
+import digit_model
 import oeis_io as oio
 import oeis_filter as oif
 import digit_mat_dataset as dmd
-from xent_train_params import *
+from digit_train_params import *
 
 np.random.seed(seed)
 
@@ -21,10 +21,10 @@ train, test = dmd.init_sets(digit_mats, train_ratio)
 sess = tf.InteractiveSession()
 x = tf.placeholder(tf.float32, shape=[None, dmd.dim_x])
 y_ = tf.placeholder(tf.float32, shape=[None, dmd.dim_y])
-v = xent_model.setup_variables()
-m = xent_model.setup_model(x, v)
-l = xent_model.setup_loss(x, y_, m)
-a = xent_model.setup_accuracy(x, y_, m)
+v = digit_model.setup_variables()
+m = digit_model.setup_model(x, v)
+l = digit_model.setup_loss(x, y_, m)
+a = digit_model.setup_accuracy(x, y_, m)
 
 saver = tf.train.Saver(max_to_keep=save_max_to_keep)
 global_step = tf.Variable(0, trainable=False)
