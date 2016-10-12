@@ -21,7 +21,7 @@ Clustering - Alex Tuesh and Joshua Moss (Eyal Itskovits?)
 
 Distance/Similarity measures - Eli Marchevsky and Racheli Shiran ([report] (https://github.com/orzuk/OEIS/blob/master/docs/SimilarityMeasure.pptx))
 
-Feature generation&selection  - Jonathan Fiat  
+Feature generation&selection  - Jonathan Fiat ([report] (https://docs.google.com/document/d/1PfdasaVKIPw9UYZ6NdvwawW2hugEYyVd72qEWFRuFQ0/edit?usp=sharing)) 
 
 Dimensionality reduction and visualization - Lior Fox and Leshem Choshen
 
