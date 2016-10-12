@@ -17,7 +17,7 @@ Preprocessing, filtering - Jonathan Zouari, Ayellet Blass. [Filtering and Prepro
 Old link is [here] 
 (https://docs.google.com/presentation/d/1bmX-NUWKpTKk69g8ad1WNckxxGIckn5pn6ucHJMsks0/edit#slide=id.p)
 
-Clustering - Eyal Itskovits
+Clustering - Alex Tuesh and Joshua Moss (Eyal Itskovits?)
 
 Distance/Similarity measures - Eli Marchevsky and Racheli Shiran
 
