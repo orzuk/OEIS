@@ -19,7 +19,7 @@ Old link is [here]
 
 Clustering - Alex Tuesh and Joshua Moss (Eyal Itskovits?)
 
-Distance/Similarity measures - Eli Marchevsky and Racheli Shiran
+Distance/Similarity measures - Eli Marchevsky and Racheli Shiran ([report] (https://github.com/orzuk/OEIS/blob/master/docs/SimilarityMeasure.pptx))
 
 Feature generation&selection  - Jonathan Fiat  
 
