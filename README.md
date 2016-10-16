@@ -23,7 +23,7 @@ Distance/Similarity measures - Eli Marchevsky and Racheli Shiran ([report] (http
 
 Feature generation&selection  - Jonathan Fiat ([report] (https://docs.google.com/document/d/1PfdasaVKIPw9UYZ6NdvwawW2hugEYyVd72qEWFRuFQ0/edit?usp=sharing)) 
 
-Dimensionality reduction and visualization - Lior Fox and Leshem Choshen
+Dimensionality reduction and visualization - Lior Fox and Leshem Choshen ([report](https://docs.google.com/document/d/1NZ8SDC2hJX0dpWRW233RWnyoqkzseJ63IFSDdfN2S7g/edit?usp=sharing))
 
 Prediction - Ofer Springer and Yoav Wald ([progress report] (https://docs.google.com/document/d/1AfnzANE62Wf2adFHbOzQQ8OO0h0LpLpT_XEC-ZlE-7U/edit?usp=sharing))
 
